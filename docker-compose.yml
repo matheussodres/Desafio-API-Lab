@@ -1,0 +1,34 @@
+version: '3'
+services:
+  postgres_db:
+    image: 'postgres'
+    container_name: postgres_db
+    restart: always
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DATABASE}
+    volumes:
+      - ./postgres:/var/www/html
+    ports:
+      - 5432:5432
+    networks:
+      - docker-laboratory
+
+  api:
+    image: biojj/laboratory-deploy
+    container_name: laboratory-deploy
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DATABASE}
+    ports:
+      - 3000:3000
+    networks:
+      - docker-laboratory
+    depends_on:
+      - postgres_db
+
+networks:
+  docker-laboratory:
+    driver: bridge
