@@ -7,11 +7,11 @@ import { LaboratoryEntity } from 'src/laboratory/interfaces/laboratory.entity';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost' ? 'localhost' : 'postgres_db',
-      username: 'postgres',
-      password: 'laboratorydb',
-      database: 'laboratorydb',
+      type: 'mongodb', //Inserir qual tipo de banco está sendo utilizado, no meu caso foi mongodb do Xampp
+      host: 'localhost', // Projeto foi local, sem necessidade de AWS, Azure, ou outro Cloud afins
+      username: 'root', // Usuário do bd, no xamp localmente utilizo o Root
+      password: '', // Localmente não utlizo senha
+      database: 'apilab', // Nome pre-definido no Xampp como apilab
       entities: [LaboratoryEntity, ExamEntity, LaboratoryExamEntity],
       synchronize: true,
     }),
